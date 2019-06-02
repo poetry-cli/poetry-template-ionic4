@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar [color]="configSrv.platformConfig.toolbarColor">
+        <ion-searchbar #searchBar mode="ios" placeholder="搜索" debounce="600" [(ngModel)]="address" (ionInput)="getItems($event)">
+        </ion-searchbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">
+                <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-list>
+        <ion-item button *ngFor="let item of items" tappable (click)="selectItem(item)">
+            <ion-label>
+                <h3>{{item.name}}</h3>
+                <p>
+                    <span *ngFor="let add of item.address.split(';')">
+                        <span class="address">{{add}}</span>
+                    </span>
+                </p>
+            </ion-label>
+        </ion-item>
+        <button *ngIf="items.length>0&&historyButton" ion-button full clear (click)="clearHistory()">清空搜索历史</button>
+    </ion-list>
+</ion-content>
